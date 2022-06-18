@@ -9,6 +9,7 @@ import Geeta from './Mahabhandaarscreen/Geeta';
 import Teevi from './Mahabhandaarscreen/Teevi';
 import Sujhawa from './Mahabhandaarscreen/Sujhawa';
 import mandiricon from '../../assets/mandiricon.png'
+import calendar from '../../assets/calendar.png'
 
 
 
@@ -36,7 +37,7 @@ export default function Mahabhandaar() {
                     tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)
                 }} />
                 <Tab.Screen name="पंचांग" component={Panchangh} options={{
-                    tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)
+                    tabBarIcon: () => (<Image source={calendar} style={{ width: 35, height: 35, right: 5 }} />)
                 }} />
                 <Tab.Screen name="साहित्य" component={Sahitye} options={{
                     tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)

@@ -72,7 +72,7 @@ function BottomTab({ }) {
 
             <Tab.Screen name="आज के सुझाव" component={Aaj} />
             <Tab.Screen name="संगीत संग्रह" component={Sangeet} />
-            <Tab.Screen name="Coustom" component={Coustom} options={{
+            <Tab.Screen name="Welcome 🙏" component={Coustom} options={{
                 tabBarIcon: () => (<Image source={mandiricon} style={{ width: 40, height: 50, }} />)
             }} />
             <Tab.Screen name="महाभंडार" component={Mahabhandaar} />

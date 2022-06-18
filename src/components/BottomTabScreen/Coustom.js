@@ -85,14 +85,6 @@ export default function Sangeet() {
                     tabBarIcon: () => (<Image source={surya} style={{ width: 45, height: 45, right: 10, marginVertical: -8 }} />)
                 }} />
 
-
-
-
-
-
-
-
-
             </Tab.Navigator>
 
         </>
