@@ -14,8 +14,6 @@ export default function Samudaya({ }) {
 
 
         <Drawer.Navigator
-            //  drawerContent={(props) => <DrawerContent {...props} />}
-
             screenOptions={{
 
 

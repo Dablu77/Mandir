@@ -8,9 +8,13 @@ import Subhveechar from './Mahabhandaarscreen/Subhveechar';
 import Geeta from './Mahabhandaarscreen/Geeta';
 import Teevi from './Mahabhandaarscreen/Teevi';
 import Sujhawa from './Mahabhandaarscreen/Sujhawa';
-import mandiricon from '../../assets/mandiricon.png'
 import calendar from '../../assets/calendar.png'
-
+import books from '../.././assets/books.png'
+import mukhye from '../../assets/mukhye.png'
+import smss from '../../assets/smss.png'
+import geetaslok from '../../assets/geetaslok.png';
+import tv from '../../assets/tv.png'
+import pagoda from '../../assets/pagoda.png'
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -34,25 +38,25 @@ export default function Mahabhandaar() {
 
             }}>
                 <Tab.Screen name="मुख्य" component={Mukhya} options={{
-                    tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)
+                    tabBarIcon: () => (<Image source={mukhye} style={{ width: 35, height: 35, right: 5 }} />)
                 }} />
                 <Tab.Screen name="पंचांग" component={Panchangh} options={{
                     tabBarIcon: () => (<Image source={calendar} style={{ width: 35, height: 35, right: 5 }} />)
                 }} />
                 <Tab.Screen name="साहित्य" component={Sahitye} options={{
-                    tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)
+                    tabBarIcon: () => (<Image source={books} style={{ width: 35, height: 35, right: 5 }} />)
                 }} />
                 <Tab.Screen name="सुविचार" component={Subhveechar} options={{
-                    tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)
+                    tabBarIcon: () => (<Image source={smss} style={{ width: 35, height: 35, right: 5 }} />)
                 }} />
                 <Tab.Screen name="गीता श्लोक" component={Geeta} options={{
-                    tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)
+                    tabBarIcon: () => (<Image source={geetaslok} style={{ width: 35, height: 35, right: 5 }} />)
                 }} />
                 <Tab.Screen name="टीवी" component={Teevi} options={{
-                    tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)
+                    tabBarIcon: () => (<Image source={tv} style={{ width: 30, height: 30, right: 5 }} />)
                 }} />
                 <Tab.Screen name="सुझाव" component={Sujhawa} options={{
-                    tabBarIcon: () => (<Image source={mandiricon} style={{ width: 35, height: 35, right: 5 }} />)
+                    tabBarIcon: () => (<Image source={pagoda} style={{ width: 35, height: 35, right: 5 }} />)
                 }} />
 
 

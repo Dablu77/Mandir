@@ -36,8 +36,7 @@ function BottomTab({ }) {
                     } else if (route.name === 'संगीत संग्रह') {
                         iconName = focused ? 'music-note' : 'music-note';
 
-                        // } else if (route.name === 'Coustom') {
-                        //     iconName = focused ? 'add-circle-outline' : 'add-circle-outline';
+
 
                     } else if (route.name === 'महाभंडार') {
                         iconName = focused ? 'auto-stories' : 'auto-stories';

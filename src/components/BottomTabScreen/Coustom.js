@@ -28,11 +28,9 @@ import templet from '../../assets/templet.png'
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function Sangeet() {
+export default function Coustom() {
     return (
         <>
-
-
 
             <Tab.Navigator screenOptions={{
                 tabBarScrollEnabled: true,
@@ -46,9 +44,14 @@ export default function Sangeet() {
                 tabBarIndicatorStyle: {
                     borderBottomColor: "#f8300d",
                     borderBottomWidth: 2,
+                    // borderWidth: 10
+                    // paddingHorizontal: 25
 
-
-                }
+                },
+                // tabStyle: {
+                //     justifyContent: "center",
+                //     width: tabBarWidth / 3,
+                // }
 
 
             }}>

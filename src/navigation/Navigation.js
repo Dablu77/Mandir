@@ -7,6 +7,7 @@ import KUndalireaport from '../components/BottomTabScreen/Aajscreen/KUndalireapo
 import Aaj from '../components/BottomTabScreen/Aaj';
 import Rashiphal from '../components/BottomTabScreen/Aajscreen/Rashiphal'
 import Sahityepanchanghscreen from '../components/BottomTabScreen/Mahabhandaarscreen/Sahityepanchanghscreen';
+import SahityebhandarScreen from '../components/BottomTabScreen/Mahabhandaarscreen/SahityebhandarScreen'
 
 
 
@@ -27,6 +28,9 @@ function Navigator() {
             <Stack.Screen name='Aaj' component={Aaj} />
             <Stack.Screen name='Rashiphal' component={Rashiphal} />
             <Stack.Screen name='Sahityepanchanghscreen' component={Sahityepanchanghscreen} />
+            <Stack.Screen name='SahityebhandarScreen' component={SahityebhandarScreen} />
+
+
 
 
 

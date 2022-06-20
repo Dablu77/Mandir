@@ -20,6 +20,7 @@
     "react-native": "0.68.2",
     "react-native-cardview": "^2.0.5",
     "react-native-gesture-handler": "^2.4.2",
+    "react-native-image-swiper": "0.0.8",
     "react-native-modal-datetime-picker": "^13.1.2",
     "react-native-pager-view": "^5.4.24",
     "react-native-reanimated": "^2.8.0",

@@ -126,11 +126,6 @@ export default function Sangeet() {
 
 
 
-
-
-
-
-
             </Tab.Navigator>
         </>
     )

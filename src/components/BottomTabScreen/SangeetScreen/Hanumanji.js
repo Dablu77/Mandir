@@ -9,7 +9,7 @@ export default function Hanumanji() {
             <View style={{ alignItems: 'center' }}>
                 <Image source={texticonlogo} style={{ height: 20, width: 250, marginVertical: -25, right: 30 }} />
             </View>
-            <ScrollView vertical={true} style={{ flexDirection: 'row' }}>
+            <ScrollView horizontal={true} style={{ flexDirection: 'row' }}>
                 <View style={Styles.box1}>
                     <Text style={Styles.boxtext}>सभी</Text>
                 </View>
@@ -20,7 +20,13 @@ export default function Hanumanji() {
                     <Text style={Styles.boxtext}>पाठ</Text>
                 </View>
                 <View style={Styles.box1}>
-                    <Text style={Styles.boxtext}>सभी</Text>
+                    <Text style={Styles.boxtext}>आरती</Text>
+                </View>
+                <View style={Styles.box1}>
+                    <Text style={Styles.boxtext}>मंत्र</Text>
+                </View>
+                <View style={Styles.box1}>
+                    <Text style={Styles.boxtext}>चालीसा</Text>
                 </View>
 
             </ScrollView>
@@ -42,15 +48,18 @@ const Styles = StyleSheet.create({
     },
     box1: {
         height: 30,
-        width: 50,
-        borderColor: 'red',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+        borderColor: '#F7B02D',
         borderWidth: 1,
         borderRadius: 5,
-        margin: 20,
-        justifyContent: 'center'
+        margin: 15,
     },
+
     boxtext: {
-        color: 'red',
+        color: '#F7B02D',
         textAlign: 'center',
         fontWeight: 'bold'
     }
