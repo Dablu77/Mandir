@@ -13,7 +13,7 @@ import Samudaya from "../components/BottomTabScreen/Samudaya";
 // import Feather from 'react-native-vector-icons/Feather';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
-import mandiricon from '../assets/mandiricon.png';
+import coustom1 from '../assets/coustom1.png';
 
 
 
@@ -72,10 +72,10 @@ function BottomTab({ }) {
             <Tab.Screen name="आज के सुझाव" component={Aaj} />
             <Tab.Screen name="संगीत संग्रह" component={Sangeet} />
             <Tab.Screen name="Welcome 🙏" component={Coustom} options={{
-                tabBarIcon: () => (<Image source={mandiricon} style={{ width: 40, height: 50, }} />)
+                tabBarIcon: () => (<Image source={coustom1} style={{ width: 45, height: 45, }} />)
             }} />
             <Tab.Screen name="महाभंडार" component={Mahabhandaar} />
-            <Tab.Screen name="Samudaya" component={Samudaya} />
+            <Tab.Screen name="Samudaya" component={Samudaya} headerShown="false" />
 
 
         </Tab.Navigator>

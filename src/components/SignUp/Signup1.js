@@ -1,9 +1,16 @@
 import { View, Text, SafeAreaView, StyleSheet, Image, TextInput } from 'react-native'
-import React from 'react';
+import React, { useState } from 'react';
 import mandir from '../../assets/mandir.png'
 import CoustomButton from '../Common/CoustomButton';
+import phoneicone from '../../assets/phoneicone.png'
 
 export default function Signup1({ navigation }) {
+    const [phoneNumber, setphoneNumber] = useState('')
+    // const [errorPhoneNumber, setErrorPhonenumber] = useState(null);
+
+
+
+
     return (
         <SafeAreaView style={Styles.contanenr}>
             <Image source={mandir} style={{ height: 200, width: 300, marginHorizontal: 30, marginVertical: 30 }} />
@@ -11,16 +18,21 @@ export default function Signup1({ navigation }) {
             <Text style={Styles.lebletext}>Welcome To Ram Mandir</Text>
             <View>
                 <Text style={Styles.lebletext2}>Enter Your Phone Number</Text>
-                <TextInput
-                    style={Styles.input}
-                    // labelValue={email}
-                    // onChangeText={txt => {
-                    //     setEmail(txt), _emailvalidate(txt);
-                    // }}
-                    placeholder="Enter Phone Number"
-                    placeholderTextColor="#BAC3C0"
-                />
+                <View style={Styles.sectionStyle}>
+                    <Image source={phoneicone} style={Styles.phoneicone} />
+                    <TextInput
+                        style={Styles.input}
+                        labelValue={phoneNumber}
+                        onChangeText={txt => {
+                            setphoneNumber(txt), _phonenumbervalidate(txt);
+                        }}
+                        placeholder="Enter Phone Number"
+                        placeholderTextColor="#776e6e"
+                        underlineColorAndroid="transparent"
+                        keyboardType="numeric"
 
+                    />
+                </View>
             </View>
             <View style={{ justifyContent: 'flex-end', flex: 1, marginBottom: 15 }}>
                 <CoustomButton Title='Please Log In' onPress={() => navigation.navigate("Signup2")} />
@@ -39,26 +51,43 @@ const Styles = StyleSheet.create({
         color: '#F7B02D',
         fontSize: 20,
         margin: 25,
-        // marginVertical: 20,
+
 
 
     },
     lebletext2: {
         color: '#F7B02D',
-        marginHorizontal: 25,
+        marginHorizontal: 20,
         margin: 10,
-        fontWeight: '700'
-    },
-    input: {
-        height: 45,
-        borderWidth: 1,
-        color: '#F7B02D',
-        borderColor: '#EEA42C',
-        fontSize: 16,
-        backgroundColor: '#fff',
-        paddingHorizontal: 15,
-        marginHorizontal: 15,
-        borderRadius: 5,
+        fontWeight: '700',
+        fontSize: 17
     },
 
+    input: {
+        flex: 1,
+        height: 40,
+        color: '#F7B02D',
+        fontSize: 16,
+        paddingHorizontal: 15,
+
+    },
+    phoneicone: {
+        padding: 10,
+        margin: 5,
+        height: 30,
+        width: 30,
+        resizeMode: 'stretch',
+        alignItems: 'center',
+    },
+    sectionStyle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#EEA42C',
+        height: 45,
+        borderRadius: 5,
+        margin: 10,
+    }
 })
