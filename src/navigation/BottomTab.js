@@ -75,7 +75,7 @@ function BottomTab({ }) {
                 tabBarIcon: () => (<Image source={coustom1} style={{ width: 45, height: 45, }} />)
             }} />
             <Tab.Screen name="महाभंडार" component={Mahabhandaar} />
-            <Tab.Screen name="Samudaya" component={Samudaya} headerShown="false" />
+            <Tab.Screen name="Samudaya" component={Samudaya} headerShown="false" options={{ headerShown: false }} />
 
 
         </Tab.Navigator>

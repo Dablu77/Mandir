@@ -8,7 +8,7 @@ import Aaj from '../components/BottomTabScreen/Aaj';
 import Rashiphal from '../components/BottomTabScreen/Aajscreen/Rashiphal'
 import Sahityepanchanghscreen from '../components/BottomTabScreen/Mahabhandaarscreen/Sahityepanchanghscreen';
 import SahityebhandarScreen from '../components/BottomTabScreen/Mahabhandaarscreen/SahityebhandarScreen'
-
+// import Coustom from '../components/BottomTabScreen/Coustom';
 
 
 
@@ -17,10 +17,15 @@ const Stack = createStackNavigator();
 
 function Navigator() {
     return (
-        <Stack.Navigator screenOptions={{
-            headerShown: false,
-            animationEnabled: false,
-        }}>
+        <Stack.Navigator
+            initialRouteName="Coustom"
+
+            screenOptions={{
+                headerShown: false,
+                animationEnabled: false,
+            }}>
+            {/* <Stack.Screen name='Coustom' component={Coustom} /> */}
+
             <Stack.Screen name='Signup1' component={Signup1} />
             <Stack.Screen name='Signup2' component={Signup2} />
             <Stack.Screen name='BottomTab' component={BottomTab} />
