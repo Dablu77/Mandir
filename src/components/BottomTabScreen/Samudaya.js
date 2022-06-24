@@ -22,6 +22,8 @@ import share from '../../assets/share.png'
 import pujari from '../../assets/pujari.png'
 import smss from '../../assets/smss.png'
 import Coustomdrawer from '../DrawerScreen.js/Coustomdrawer';
+import Login from '../DrawerScreen.js/Login';
+import loginicone from '../../assets/loginicone.png'
 
 const Drawer = createDrawerNavigator();
 
@@ -86,9 +88,13 @@ export default function Samudaya({ }) {
             <Drawer.Screen name="अपने सुझाव भेजें" component={Sujhawbheje} options={{
                 drawerIcon: () => (<Image source={smss} style={{ width: 30, height: 30, }} />)
             }} />
+            <Drawer.Screen name="लॉग आउट" component={Login} options={{
+                drawerIcon: () => (<Image source={loginicone} style={{ width: 25, height: 25, marginHorizontal: 5 }} />)
+            }} />
 
 
-        </Drawer.Navigator >
+
+        </Drawer.Navigator>
 
     )
 }

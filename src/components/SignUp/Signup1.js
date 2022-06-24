@@ -4,11 +4,11 @@ import mandir from '../../assets/mandir.png'
 import CoustomButton from '../Common/CoustomButton';
 import phoneicone from '../../assets/phoneicone.png'
 
+
+
 export default function Signup1({ navigation }) {
     const [phoneNumber, setphoneNumber] = useState('')
     // const [errorPhoneNumber, setErrorPhonenumber] = useState(null);
-
-
 
 
     return (
@@ -37,7 +37,9 @@ export default function Signup1({ navigation }) {
             <View style={{ justifyContent: 'flex-end', flex: 1, marginBottom: 15 }}>
                 <CoustomButton Title='Please Log In' onPress={() => navigation.navigate("Signup2")} />
 
+
             </View>
+
         </SafeAreaView>
     )
 }

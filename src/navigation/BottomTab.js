@@ -1,17 +1,12 @@
 import React from "react";
 import { Image } from 'react-native';
-
 import 'react-native-gesture-handler';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Aaj from '../components/BottomTabScreen/Aaj'
-
 import Sangeet from "../components/BottomTabScreen/Sangeet";
 import Coustom from "../components/BottomTabScreen/Coustom";
 import Mahabhandaar from "../components/BottomTabScreen/Mahabhandaar";
 import Samudaya from "../components/BottomTabScreen/Samudaya";
-// import Icon from 'react-native-vector-icons/AntDesign';
-// import Feather from 'react-native-vector-icons/Feather';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
 import Ionicons from 'react-native-vector-icons/MaterialIcons';
 import coustom1 from '../assets/coustom1.png';
 
