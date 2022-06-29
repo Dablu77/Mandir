@@ -1,7 +1,10 @@
-export const ServerUrl = 'dmandir.houszzz.com/'; // Staging Server URL
+export const ServerUrl = 'http://dmandir.houszzz.com/api/v1/'; // Staging Server URL
 
 // Consumer Api's
-export const LoginApiUrl = ServerUrl + 'user/login';
+export const LoginApiUrl = ServerUrl + 'user/userLogin';
+
+
+export const verifyOtp = ServerUrl + 'user/verifyOtp';
 
 
 
