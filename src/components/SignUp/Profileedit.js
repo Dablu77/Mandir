@@ -1,59 +1,197 @@
-import { View, Text, SafeAreaView, TouchableOpacity, Image, StyleSheet, TextInput, Button } from 'react-native'
-import React, { useState, } from 'react'
-// import React, { Component } from 'react'
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-
+import { View, Text, SafeAreaView, TouchableOpacity, Image, StyleSheet, TextInput, } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import arow from '../../assets/arow.png'
 import camera from '../../assets/camera.png'
 import user from '../../assets/user.png'
+import ghari from '../../assets/ghari.png'
 import calendar33 from '../../assets/calendar33.png'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import { DatePickerModal } from 'react-native-paper-dates';
-// import DatePicker from 'react-native-date-picker'
+
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import ImagePicker from 'react-native-image-crop-picker';
+import CoustomButton from '../Common/CoustomButton';
+// import { onSelectImage } from 'react-native-image-crop-picker'
+import TimePicker from 'react-native-date-picker'
+// import TimePicker from 'react-native-simple-time-picker';
+
+// import { event } from 'react-native-reanimated';
+import moment from 'moment';
+import { RadioButton } from 'react-native-paper';
 
 
-import ghari from '../../assets/ghari.png'
 
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+// function Profileedit() {
+const Profileedit = props => {
 
-function Profileedit() {
-    // const [isSelected, setSelection] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
+    const [gender, setGender] = useState("");
+    const [age, setAge] = useState("")
+    const [address, setAddress] = useState("")
+    const [proffession, setproffession] = useState("")
+
+    const [placeOfbirth, setPlaceOfbirth] = useState("")
+
+    const [imageUrlPath, setImageUrlPath] = useState(null);
+    const [imageUrlData, setImageUrlData] = useState('');
+    // const [photo, setPhoto] = useState('');
+    // console.log(imageUrlPath);
+    const [editprofile, setEditProfile] = useState("")
+
+    // ************ First Name Validations ************
+    const [FirstName, setFirstName] = useState('');
+    const [errorFirstName, setErrorFirstName] = useState(null);
+    const _validateFirstName = fname => {
+        var fnameRegex = /^[a-z A-Z ]{2,32}$/i;
+        if (fname == '' || fname == undefined || fname == null) {
+            setErrorFirstName('*Please enter first name.');
+        } else if (!fnameRegex.test(fname)) {
+            setErrorFirstName('*Please enter valid first name.');
+        } else {
+            setErrorFirstName(null);
+        }
+    };
+
+    // const onSelectImage = async () => {
+    //     const permissionStatus = await androidCameraPermission();
+    //     if (permissionStatus || Platform.OS == 'ios') {
+    //         Alert.alert('Upload Photos', 'Choose an options', [
+    //             { text: 'Gallary', onPress: onGallary },
+    //             { text: 'Cancel', onPress: () => { } },
+    //         ]);
+    //     }
+    // };
 
 
-    // const [male, setMale] = useState(false)
-    // const [female, setFeMale] = useState(false)
-    // const [other, setOther] = useState(false)
-
-
-    const [imageUri, setimageUri] = useState()
-
-    const openGallery = () => {
-        let options = {
-            StorageOptions: {
-                path: 'images',
-                mediaType: 'photo'
-            },
-            includeBase64: true
-
-
-        };
-        launchImageLibrary(options, response => {
-            console.log('Response = ', response);
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.TouchableOpacity) {
-                console.log('User tapped custom button  ', response.TouchableOpacity);
-            } else {
-                const source = { usri: 'data:image/jpeg;base64,' + response.base64 };
-                setimageUri(source)
-            }
+    // ************* On Gallary Picker *************
+    const onGallary = () => {
+        ImagePicker.openPicker({
+            cropping: true,
+            quality: 1,
+            includeBase64: true,
+            mediaType: 'any',
+        }).then(image => {
+            setImageUrlPath(image.path);
+            setImageUrlData(image.data);
         });
+    };
 
 
+    const [token, setToken] = useState("")
+
+    const a = async () => {
+        const token = await AsyncStorage.getItem('token');
+        setToken(token)
     }
+
+
+    useEffect(() => {
+        a();
+    })
+
+    // const image1 = imageUrlPath.split('/');
+    // const image2 = image1[image1.length - 1]
+
+
+    const setIsLoading = async () => {
+
+        fetch('http://dmandir.houszzz.com/api/v1/user/editProfile', {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                token: token,
+
+
+            },
+            body: JSON.stringify({
+                name: FirstName,
+                address: address,
+                age: age,
+                gender: gender,
+                dateOfbirth: selectedDate,
+                timeOfbirth: "12:00",
+                placeOfbirth: placeOfbirth,
+                proffession: proffession,
+                profile: `image/jpeg;base64,${imageUrlData}`,
+
+            })
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json)
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+
+
+    useEffect(() => {
+        Updateprofile();
+    });
+
+
+
+    const [ProfileDetails, setProfileDetails] = useState("");
+
+    const [name, setName] = useState()
+    // ************ get editprofile Profile Api Integration ************"
+    const Updateprofile = async () => {
+        const value = await AsyncStorage.getItem('token');
+
+        console.log("techsell", value);
+
+        // setIsLoading(true);
+        axios({
+            method: 'GET',
+            url: "http://dmandir.houszzz.com/api/v1/user/getProfile",
+            headers: {
+                token: token,
+            },
+        })
+            .then(response => {
+                // if (response.responseCode === 200) {
+                //     console.log('====== Profile Response ======', response);
+
+                // } else
+
+                console.log("hey", response)
+                setProfileDetails(response.result)
+                // if (response.responseCode === 200) {
+                //     console.log('====== Profile Response ======', response);
+                //     setProfileDetails(response.result);
+                //     // setIsLoading(false);
+                // } else {
+                //     alert('Something went wrong.');
+                //     // setIsLoading(false);
+                // }
+            })
+        // .catch(err => console.log('==== Profile Catch err ====', err));
+    };
+
+
+
+
+    // const onSubmit = () => {
+    //     console.log("");
+    //     if (editprofile === '') {
+    //         setEditProfile('editprofile');
+    //     }
+    //     else {
+    //         editprofileApi();
+    //     }
+    // };
+
+
+
+
+
+
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [selectedDate, setSelectedDate] = useState();
+
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -63,33 +201,43 @@ function Profileedit() {
         setDatePickerVisibility(false);
     };
 
+
     const handleConfirm = (date) => {
-        console.warn("A date has been picked: ", date);
+        setSelectedDate(date);
         hideDatePicker();
     };
 
-    // const [date, setDate] = useState(new Date())
-    // const [open, setOpen] = useState(false)
 
 
+    // console.log("hey", date)
+
+
+    const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(false)
+
+
+    // console.log(date)
 
     // redder()
     // {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#D6FCED' }}>
+        <SafeAreaView style={{ flexG: 1, backgroundColor: '#D6FCED' }}>
             <View style={Styles.lebalecontaenr}>
-                <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+                <TouchableOpacity onPress={() => props.navigation.navigate("Profile")}>
                     <Image source={arow} style={Styles.arrowstyles} />
                 </TouchableOpacity>
                 <Text style={Styles.lebaltext}>प्रोफाइल एडिट करें</Text>
 
             </View>
-            <Image source={imageUri} style={Styles.profilebox}>
+            <TouchableOpacity style={Styles.profilebox} >
 
-            </Image>
-            <TouchableOpacity style={Styles.camerabox} onPress={() => {
-                openGallery()
-            }}>
+                {imageUrlPath && <Image source={{ uri: imageUrlPath }} style={{ width: 96, height: 96, borderRadius: 50 }} />}
+
+            </TouchableOpacity>
+
+            <TouchableOpacity style={Styles.camerabox}
+                onPress={onGallary}
+            >
                 <Image source={camera} style={Styles.imgstyles} />
                 <Text style={Styles.profiletext}>फ़ोटो बदले</Text>
             </TouchableOpacity>
@@ -97,49 +245,43 @@ function Profileedit() {
                 <Image source={user} style={Styles.phoneicone} />
                 <TextInput
                     style={Styles.input}
-                    // labelValue={phoneNumber}
-                    // onChangeText={txt => {
-                    //     setphoneNumber(txt), _phonenumbervalidate(txt);
-                    // }}
+                    labelValue={FirstName}
+                    onChangeText={txt => {
+                        setFirstName(txt), _validateFirstName(txt);
+                    }}
                     placeholder="आपका पूरा नाम"
                     maxLength={30}
 
                     placeholderTextColor="#776e6e"
                     underlineColorAndroid="transparent"
-                // onChangeText={onChangeNumber} 
-                // onChangeText={onChangeText}
-                // value={text}
+
                 />
             </View>
             <Text style={Styles.textlablestyle}>आपका लिंग</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 20, }}>
 
-                <BouncyCheckbox
-                    size={25}
-                    fillColor="#F7B02D"
-                    unfillColor="#FFFFFF"
-                    text="Male"
-                    iconStyle={{ borderColor: "black", }}
-                    textStyle={{ fontFamily: "JosefinSans-Regular" }}
-                // onPress={(isChecked: boolean) => { }}
+
+                <RadioButton.Item
+                    value="Male"
+                    label="Male"
+                    status={gender === 'Male' ? 'checked' : 'unchecked'}
+                    onPress={() => setGender('Male')}
                 />
-                <BouncyCheckbox
-                    size={25}
-                    fillColor="#F7B02D"
-                    unfillColor="#FFFFFF"
-                    text="Female"
-                    iconStyle={{ borderColor: "black", }}
-                    textStyle={{ fontFamily: "JosefinSans-Regular" }}
-                // onPress={(isChecked: boolean) => { }}
+
+                <RadioButton.Item
+                    value="Female"
+                    label="Female"
+
+                    status={gender === 'Female' ? 'checked' : 'unchecked'}
+                    onPress={() => setGender('Female')}
+
                 />
-                <BouncyCheckbox
-                    size={25}
-                    fillColor="#F7B02D"
-                    unfillColor="#FFFFFF"
-                    text="Other"
-                    iconStyle={{ borderColor: "black", }}
-                    textStyle={{ fontFamily: "JosefinSans-Regular" }}
-                // onPress={(isChecked: boolean) => { }}
+                <RadioButton.Item
+                    value="Other"
+                    label="Other"
+
+                    status={gender === 'Other' ? 'checked' : 'unchecked'}
+                    onPress={() => setGender('Other')}
                 />
 
             </View>
@@ -149,15 +291,29 @@ function Profileedit() {
                 placeholderTextColor="#776e6e"
                 style={Styles.input2}
                 placeholder="Address"
+                onChangeText={txt => {
+                    setAddress(txt);
+                }}
+
 
 
             />
+            {/* <TextInput
+                multiline
+                numberOfLines={10}
+                placeholderTextColor="#776e6e"
+                style={Styles.input2}
+                placeholder="Address"
+                onChangeText={txt => {
+                    setPlaceOfbirth(txt);
+                }}
+            /> */}
 
             <View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15, marginVertical: 5 }} >Age</Text>
-                    <Text style={{ color: 'black', marginVertical: 15, fontSize: 15, fontWeight: 'bold' }}>Date Of Birth </Text>
+                    <Text style={{ color: 'black', marginVertical: 15, fontSize: 15, fontWeight: 'bold' }}>date of borth</Text>
 
                 </View>
 
@@ -172,15 +328,23 @@ function Profileedit() {
                         style={Styles.input3}
                         placeholder="Age"
                         maxLength={2}
+                        onChangeText={txt => {
+                            setAge(txt);
+                        }}
 
 
                     />
 
-                    <View style={{ borderWidth: 1, height: 45, width: 110, borderRadius: 5, backgroundColor: 'white' }}>
+                    <View style={{
+                        borderWidth: 1, height: 45, width: 200, borderRadius: 5,
+                        display: 'flex',
+                        backgroundColor: 'white', flexDirection: 'row', justifyContent: 'center'
+                    }}>
                         <TouchableOpacity onPress={showDatePicker}>
-                            <Image source={calendar33} style={{ height: 35, width: 35, margin: 3 }} />
-                        </TouchableOpacity>
 
+                            <Image source={calendar33} style={{ height: 35, width: 35, right: 10, marginVertical: 3 }} />
+                        </TouchableOpacity>
+                        <Text style={Styles.labletextstyle}>{`${selectedDate ? moment(selectedDate).format("MM/DD/YYYY") : "Please select date"}`}</Text>
                     </View>
 
                 </View>
@@ -193,27 +357,59 @@ function Profileedit() {
                     mode="date"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
+
+                    onChangeText={txt => {
+                        setSelectedDate(txt);
+                    }}
+
                 />
             </View>
             <Text style={{ color: 'black', fontWeight: 'bold', marginHorizontal: 20, }}>Time Of Birth</Text>
-            <View style={{ borderWidth: 1, height: 45, borderColor: 'grey', backgroundColor: 'white', marginHorizontal: 20, borderRadius: 5 }}>
-                <TouchableOpacity onPress={() => setOpen(true)} >
-                    <Image source={ghari} style={{ height: 50, width: 50 }} />
+            <View style={{ borderWidth: 1, height: 45, borderColor: 'grey', backgroundColor: 'white', borderRadius: 5, flexDirection: 'row', marginHorizontal: 20 }}>
+                <TouchableOpacity onPress={() => setOpen(true)}>
+                    <Image source={ghari} style={{ height: 50, width: 50, marginVertical: -4 }} />
                 </TouchableOpacity>
+                <Text style={Styles.labletextstyle}>{`${date ? moment(date).format("hh/mm/a ") : "Please select date"}`}</Text>
+
+
             </View>
 
-            {/* <DatePicker
-                modal
-                open={open}
-                date={date}
-                onConfirm={(date) => {
-                    setOpen(false)
-                    setDate(date)
+            <View>
+                <TimePicker
+                    modal
+                    textColor='White'
+                    backgroundColor='white'
+                    open={open}
+                    date={date}
+                    onConfirm={(date) => {
+                        setOpen(false)
+                        setDate(date)
+                    }}
+                    onCancel={() => {
+                        setOpen(false)
+                    }}
+                />
+            </View>
+            {/* <View style={{ borderWidth: 1, height: 45, borderColor: 'grey', backgroundColor: 'white', marginHorizontal: 20, borderRadius: 5, margin: 20 }}>
+            </View> */
+            }
+            <TextInput
+                multiline
+                numberOfLines={10}
+                placeholderTextColor="#776e6e"
+                style={Styles.input2}
+                placeholder="Proffession"
+                onChangeText={txt => {
+                    setproffession(txt);
                 }}
-                onCancel={() => {
-                    setOpen(false)
-                }}
-            /> */}
+
+
+            />
+
+
+            <View>
+                <CoustomButton Title='Save' onPress={() => setIsLoading()} />
+            </View>
         </SafeAreaView>
     );
 }
@@ -309,17 +505,16 @@ const Styles = StyleSheet.create({
         color: 'black'
     },
     input2: {
-        // flex: 1,
-        height: 70,
+        height: 60,
         color: '#F7B02D',
         fontSize: 16,
         paddingHorizontal: 15,
         backgroundColor: 'white',
         marginVertical: 15,
-        marginHorizontal: 10,
+        marginHorizontal: 20,
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: 'grey'
+        borderColor: 'grey',
 
 
     },
@@ -339,6 +534,12 @@ const Styles = StyleSheet.create({
 
 
     },
+    labletextstyle: {
+        color: 'black',
+        fontSize: 17,
+        fontWeight: '500',
+        marginVertical: 10
+    }
 
 
 

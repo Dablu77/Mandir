@@ -1,8 +1,8 @@
 import { View, Text, SafeAreaView, StyleSheet, Image, TextInput, TouchableOpacity, } from 'react-native'
-import React, { useRef, useState, } from 'react';
+import React, { useEffect, useRef, useState, } from 'react';
 import mandir from '../../assets/mandir.png'
 import CoustomButton from '../Common/CoustomButton';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { verifyOtp } from '../restApi/ApiConfig';
 import CustomLoader from '../../CustomLoader/CustomLoader';
@@ -12,26 +12,15 @@ import CustomLoader from '../../CustomLoader/CustomLoader';
 const Signup2 = props => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const [loader, setLoader] = useState(false);
-    const [phonenumber, setphoneNumber] = useState(props?.route?.params?.phonenumber)
+    // const [loader, setLoader] = useState(false);
+    // const [phonenumber, setphoneNumber] = useState(props?.route?.params?.phonenumber);
+    // const [data, setdata] = useState();
 
     // console.log('phonenumber', phonenumber)
 
+    // console.log("gfhkfghhfhf", phonenumber)
 
 
-    // const pin1Ref = useRef = ("")
-    // const pin2Ref = useRef = ("")
-    // const pin3Ref = useRef = ("")
-    // const pin4Ref = useRef = ("")
-
-
-
-
-
-    // const [pin1, setPin1] = useState("")
-    // const [pin2, setPin2] = useState("")
-    // const [pin3, setPin3] = useState("")
-    // const [pin4, setPin4] = useState("")
 
     const [otp, setotp] = useState("")
     const [errorotp, setErrorotp] = useState(null);
@@ -48,106 +37,81 @@ const Signup2 = props => {
         }
     };
 
-    // const validate = () => {
-    //     let flag = true;
-    //     if (errorotp === '') {
-    //         setErrorotp('*Please enter OTP.');
-    //         flag = false;
+    useEffect(() => {
+        a();
+    }
+    )
+    const [phonenumber, setphoneNumber] = useState("")
+    const a = async () => {
+        const phonenumber = await AsyncStorage.getItem('mobileNumber',);
+        setphoneNumber(phonenumber)
+    }
+
+    // console.log("hey", phonenumber)
+
+    // const onSubmit = () => {
+    //     console.log("====================================" + otp);
+    //     if (otp === '') {
+    //         setErrorotp('Please enter OTP');
     //     }
-
-    //     return flag;
+    //     else {
+    //         OTPApi();
+    //     }
     // };
-
-
-
-    const onSubmit = () => {
-        console.log("====================================" + otp);
-        if (otp === '') {
-            setErrorotp('Please enter OTP');
-        }
-        else {
-            OTPApi();
-        }
-    };
 
 
 
 
 
     // ************ Login Api Integration ************
-    const OTPApi = async () => {
-        const formdata = new FormData();
-        formdata.append({
-            mobileNumber: "7739688360",
-            otp: otp,
+    // const OTPApi = async () => {
+    //     const formdata = new FormData();
+    //     formdata.append({
+    //         mobileNumber: phonenumber,
+    //         otp: otp,
 
-        });
-        console.log('===== verifyOtp data =====', formdata);
+    //     });
+    //     console.log('===== verifyOtp data =====', formdata);
 
-        setLoader(true);
-        axios({
+    //     setLoader(true);
+    const App = () => {
+
+        fetch('http://dmandir.houszzz.com/api/v1/user/verifyOtp', {
             method: 'POST',
-            url: verifyOtp,
-            data: formdata?._parts[0][0],
-            headers: { 'content-type': 'application/json' },
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                mobileNumber: phonenumber,
+                otp: otp,
+            })
         })
-
-            .then(async response => {
-                if (response?.data?.responseCode === 200) {
-                    console.log('====== Create Company Response ======', response);
+            .then((response) => response.json())
+            .then(async (json) => {
+                console.log("hi", json)
+                if (json?.responseCode === 200) {
+                    console.log('======  Response ======', json.result.token);
+                    await AsyncStorage.setItem('token', json.result.token);
                     props.navigation.navigate('BottomTab', {
                         initialRouteName: 'Coustom'
                     });
-                    alert(response?.data?.responseMessage);
+                    alert(json?.responseMessage);
                     setIsLoading(false);
-                } else if (response?.data?.responseCode === 401) {
-                    alert(response?.data?.responseMessage);
+                } else if (json?.responseCode === 401) {
+                    alert(json?.responseMessage);
                 } else {
                     alert('Something went wrong.');
                     setIsLoading(false);
                 }
+
+
             })
+            .catch((error) => {
+                console.error(error);
+            });
 
-
-
-
-
-
-
-
-            // .then(async response => {
-            //     if (response?.data?.responseCode === 200) {
-            //         console.log('====== verifyOtp Response ======', response);
-            //         // await AsyncStorage.setItem('token', response?.data?.result?.token);
-
-            //         setSnackIsVisible(true);
-            //         setTimeout(() => {
-            //             props.navigation.navigate('BottomTab', {
-            //                 initialRouteName: 'Coustom',
-            //             });
-            //         });
-            //         setLoader(false);
-            //     } else {
-            //         alert('Something went wrong.');
-            //         setLoader(false);
-            //     }
-            // })
-
-
-
-
-
-            // .catch(err => {
-            //     console.log('====  verifyOtp Catch error=====', err);
-            //     if (err?.response?.data?.responseCode === 401) {
-            //         alert('Something went  To wrong OTP.');
-            //     } else {
-            //         alert('Something went  To wrong OTP.');
-            //         setLoader(false);
-            //     }
-            // });
-            .catch(err => console.log('==== login Phone Catch err ====', err));
-    };
+    }
 
 
 
@@ -166,6 +130,7 @@ const Signup2 = props => {
                         style={Styles.input}
                         keyboardType={'number-pad'}
                         maxLength={4}
+
                         onChangeText={txt => {
                             setotp(txt), _otpvalidate(txt);
                         }}
@@ -249,10 +214,13 @@ const Signup2 = props => {
                 {isLoading ? (
                     <CustomLoader />
                 ) : (
-                    <CoustomButton Title='Please Enter OTP' onPress={() => onSubmit()} />
+                    <CoustomButton Title='Please Enter OTP' onPress={() => App()} />
+
                 )}
 
             </View>
+            {/* <CoustomButton Title='Please Enter OTP' onPress={() => App()} /> */}
+
         </SafeAreaView>
     )
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import mandir from '../../assets/mandir.png'
 import CoustomButton from '../Common/CoustomButton';
 import phoneicone from '../../assets/phoneicone.png'
-import PhoneInput from "react-native-phone-number-input";
+// import PhoneInput from "react-native-phone-number-input";
 import Snackbar from 'react-native-snackbar-component';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -38,18 +38,11 @@ const Signup1 = props => {
         }
     };
 
-    // const validate = () => {
-    //     let flag = true;
-    //     if (errorPhone === '') {
-    //         setErrorPhone('कृपया फ़ोन नंबर दर्ज करें');
-    //         flag = false;
-    //     }
-    //     return flag;
-    // };
+
 
 
     const onSubmit = () => {
-        console.log("====================================" + phonenumber);
+        console.log("hi====================================" + phonenumber);
         if (phonenumber === '') {
             setErrorPhone('कृपया फ़ोन नंबर दर्ज करें');
         }
@@ -57,7 +50,6 @@ const Signup1 = props => {
             LoginApi();
         }
     };
-
 
 
     // ************ Login Api Integration ************
@@ -78,7 +70,7 @@ const Signup1 = props => {
             .then(async response => {
                 console.log('====== login Phone Response ======', response);
                 if (response?.data?.responseCode === 200) {
-                    await AsyncStorage.setItem('mobileNumber', response?.data?.result?.mobileNumber);
+                    await AsyncStorage.setItem('mobileNumber', response?.data?.result.mobileNumber);
                     setSnackIsVisible(true);
                     setTimeout(() => {
                         props.navigation.navigate('Signup2', {

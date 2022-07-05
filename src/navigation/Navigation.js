@@ -28,8 +28,8 @@ function Navigator() {
             }}>
             {/* <Stack.Screen name='Coustom' component={Coustom} /> */}
 
-            {/* <Stack.Screen name='Signup1' component={Signup1} /> */}
-            {/* <Stack.Screen name='Signup2' component={Signup2} /> */}
+            <Stack.Screen name='Signup1' component={Signup1} />
+            <Stack.Screen name='Signup2' component={Signup2} />
             <Stack.Screen name='Profile' component={Profile} />
             <Stack.Screen name='Profileedit' component={Profileedit} />
             <Stack.Screen name='BottomTab' component={BottomTab} />
